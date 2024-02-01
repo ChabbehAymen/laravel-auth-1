@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class SignUpController extends Controller
 {
@@ -42,10 +43,6 @@ class SignUpController extends Controller
         }
         // signUp();
         return redirect()->route("login");
-    }
-
-    private function getjsonFile()
-    {
     }
 
     private function getDataOfForm(Request $request)
@@ -105,4 +102,12 @@ class SignUpController extends Controller
             and (strlen($this->password_confirmation) >= 6 and strlen($this->password) >= 6)
             and ($this->password === $this->password_confirmation);
     }
+
+    private function isUserLoged()
+    {
+        // return isset($_SESSION['user_loged']) or isset($_SESSION['as_admin']);
+        // return session()->has('as_admin') or session()->has('user_loged');
+        return Session::has('as_admin') or Session::has('user_loged');
+    }
+
 }

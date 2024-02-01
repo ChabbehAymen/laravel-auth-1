@@ -19,7 +19,7 @@
 </style>
 
 <body class="d-flex flex-column justify-content-center align-items-center gap-4">
-    <a href="<?php echo route('signUp'); ?>" class="position-absolute top-0 end-0 me-4 mt-4 text-decoration-none text-light"> Don't have an Acount?<b class="text-decoration-underline"> Register Know!</b></a>
+    <a href="<?php echo route('signUp'); ?>" class="position-absolute top-0 end-0 me-4 mt-4 text-decoration-none text-light"> Don't have an Acount?<b class="text-decoration-underline"> Register Now!</b></a>
     <h1 class="text-light">Login</h1>
     <form action="{{url('/login')}}" method="post" class="d-flex flex-column justify-content-center align-items-center gap-1 bg-white p-4 rounded-3">
         @csrf
