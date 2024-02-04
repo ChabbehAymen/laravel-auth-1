@@ -21,6 +21,11 @@ class ProfileController extends Controller
         }
     }
 
+    public function logout(){
+        session()->flush();
+        return redirect('/');
+    }
+
     private function getJson(){
         $path = resource_path('json/users.json');
         $this->jsonData = json_decode(file_get_contents($path), true);
@@ -30,5 +35,9 @@ class ProfileController extends Controller
         foreach($this->jsonData['users'] as $user){
             if($user['id'] === $userId ) return $user;
         }
+    }
+
+    public function updateUserData(){
+
     }
 }

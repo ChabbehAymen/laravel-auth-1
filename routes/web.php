@@ -26,4 +26,7 @@ Route::group([], function (){
     Route::post('/signing-up', [SignUpController::class, 'preSignUp']);
 });
 
-Route::get('/profile',[ProfileController::class,'index'])->name('profile');
+Route::group([], function(){
+    Route::get('/profile',[ProfileController::class,'index'])->name('profile');
+   Route::get('/logout',[ProfileController::class, 'logout'])->name('logout');
+});
