@@ -9,14 +9,15 @@ class ProfileController extends Controller
 {
 
     private $jsonData;
+    private $userId;
     public function index(Request $request){
         $this->getJson();
         if ($request->session()->has('as_admin')) {
             return view("dashbord")->with('users', $this->jsonData['users']);
         } else{
             // $userId= $_SESSION['user_loged'];
-            $userId = Session::get('user_loged');
-            $user = $this->getUserData($userId);
+            $this->userId = Session::get('user_loged');
+            $user = $this->getUserData($this->userId);
             return view("profile")->with('user', $user);
         }
     }
@@ -26,7 +27,7 @@ class ProfileController extends Controller
         return redirect('/');
     }
 
-    private function getJson(){
+    private function getJson():void{
         $path = resource_path('json/users.json');
         $this->jsonData = json_decode(file_get_contents($path), true);
     }
@@ -37,7 +38,40 @@ class ProfileController extends Controller
         }
     }
 
-    public function updateUserData(){
-
+    public function updateUserData(Request $request){
+        $last_name = $request->input('last-name');
+        $first_name = $request->input('first-name');
+        $birth_date = $request->input('birth-date');
+        $password = $request->input('password');
+        if ($this->isUpdatedDataValid($first_name, $last_name, $birth_date, $password)){
+            $this->updateUserInDb($first_name, $last_name, $birth_date, $password);
+        }
     }
+
+    private function isUpdatedDataValid(String $first_name, String $last_name, String $birth_date, String $password): bool
+    {
+        return ($first_name !== '' and $last_name !== '' and $birth_date !== '' and $password !== '') and
+            (strlen($first_name) > 3 and strlen($last_name) > 3);
+    }
+
+    private function updateUserInDb(String $first_name, String $last_name, String $birth_date, String $password): void
+    {
+        foreach ($this->jsonData['users'] as $user){
+            if ($user['id'] === $this->userId){
+                $user['name'] = $first_name;
+                $user['last_name'] = $last_name;
+                $user['birth_date'] = $birth_date;
+                $user['password'] = $password;
+                $this->saveModifications();
+            }
+        }
+    }
+
+    private function saveModifications():void
+    {
+        $fp = fopen(resource_path('json/users.json'), 'w');
+        fwrite($fp, json_encode($this->jsonData));
+        fclose($fp);
+    }
+
 }

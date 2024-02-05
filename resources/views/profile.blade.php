@@ -12,22 +12,23 @@
   <a href="<?php echo route('logout'); ?>" class="position-absolute top-0 end-0 m-4 btn btn-primary">Logout</a>
   <div class="card">
     <div class="card-body">
-      <form action="" method="post" class="d-flex flex-column gap-2">
+      <form action="{{url('/update')}}" method="post" class="d-flex flex-column gap-2">
         @csrf
         <div class="w-100 d-flex justify-content-center gap-1 fs-4">
-        <input type="text" name="last_name" value="{{$user['last_name']}}" class="border-0" style="width: 25%;">
-        <input type="text" name="name" value="{{$user['name']}}" class="border-0" style="width: 25%;">
+        <input type="text" name="last-name" value="{{$user['last_name']}}" class="border-0" style="width: 25%;">
+        <input type="text" name="first-name" value="{{$user['name']}}" class="border-0" style="width: 25%;">
         </div>
         <h6 class="card-subtitle mb-2 text-body-secondary">{{$user['last_session']}}</h6>
         <p class="card-text m-0">{{$user['email']}}</p>
         <p class="card-text m-0">{{$user['user_name']}}</p>
-        <input type="date" name="birth_date" value="{{$user['birth_date']}}" class="border-0"><br>
+        <input type="date" name="birth-date" value="{{$user['birth_date']}}" class="border-0"><br>
         <input type="text" name="password" value="{{$user['password']}}" class="border-0">
         <div class="w-100 d-flex justify-content-center">
           <input type="submit" value="Change Data" class="bg-transparent border-1">
         </div>
       </form>
     </div>
+  </div>
 </body>
 
 </html>
