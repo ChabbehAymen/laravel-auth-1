@@ -62,7 +62,7 @@
         </tbody>
     </table>
     <div class="w-100 d-flex justify-content-center mt-5">
-    <a href="<?php session()->flush();echo route('login'); ?>" class="btn btn-primary">Logout</a>
+    <a href="<?php echo route('logout'); ?>" class="btn btn-primary">Logout</a>
     </div>
 </body>
 
