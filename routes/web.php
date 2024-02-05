@@ -29,4 +29,5 @@ Route::group([], function (){
 Route::group([], function(){
     Route::get('/profile',[ProfileController::class,'index'])->name('profile');
    Route::get('/logout',[ProfileController::class, 'logout'])->name('logout');
+   Route::post('/update', [ProfileController::class, 'updateUserData']);
 });
